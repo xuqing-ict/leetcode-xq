@@ -1,5 +1,6 @@
 class Solution {
 public:
+//modify in branch develop
     void reverseWords(string &s) {
         const int n = s.size();
         if(n==0) return ;
