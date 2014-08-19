@@ -1,0 +1,22 @@
+class Solution {
+public:
+    void connect(TreeLinkNode *root) {
+        TreeLinkNode *curLevel=root, *last=nullptr;
+        TreeLinkNode dummy(0);
+        last = &dummy;
+        
+        while(curLevel)
+        {
+            dummy.next = nullptr;
+            last = &dummy;
+            for(TreeLinkNode *cur = curLevel; cur ; cur=cur->next)
+            {
+                if(cur->left)
+                    last = last->next = cur->left;
+                if(cur->right)
+                    last = last->next = cur->right;
+            }
+            curLevel = dummy.next;
+        }
+    }
+};
