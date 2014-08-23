@@ -1,0 +1,36 @@
+class Solution {
+    //之前的代码虽然AC了，但是会改变list的结构，这样必导致内存泄露，于是前面的代码全部都是错误的。
+private:
+    int Len(ListNode *head)
+    {
+        int ret=0;
+        while(head)
+        {
+            ++ret;
+            head=head->next;
+        }
+        return ret;
+    }
+    TreeNode *helper(ListNode *head, int len)
+    {
+        if(head == nullptr || len <= 0 ) return nullptr;
+        ListNode *cur=head;
+        int mid=(len+1)/2-1;
+        int tmp=mid;
+        while(tmp)
+        {
+            cur=cur->next;
+            --tmp;
+        }
+        TreeNode *root = new TreeNode(cur->val);
+        root->left = helper(head,mid);
+        root->right = helper(cur->next,len-mid-1);
+        return root;
+    }
+public:
+    TreeNode *sortedListToBST(ListNode *head) {
+        const int n = Len(head);
+        TreeNode *root=helper(head,n);
+        return root;
+    }
+};
